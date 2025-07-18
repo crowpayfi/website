@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - Crowpay</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+            },
+            colors: {
+              "custom-gray": {
+                100: "#a0a0a0",
+                200: "#e0e0e0",
+                300: "#c0c0c0",
+              },
+            },
+            animation: {
+              fadeInUp: "fadeInUp 1s ease forwards",
+              gentleFloat: "gentleFloat 6s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes gentleFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .error-content {
+        opacity: 0;
+        animation: fadeInUp 1s ease 0.3s forwards;
+      }
+
+      .floating-dot {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        animation: gentleFloat 8s ease-in-out infinite;
+      }
+
+      .floating-dot:nth-child(1) {
+        left: 10%;
+        top: 20%;
+        animation-delay: 0s;
+      }
+      .floating-dot:nth-child(2) {
+        left: 80%;
+        top: 30%;
+        animation-delay: 2s;
+      }
+      .floating-dot:nth-child(3) {
+        left: 60%;
+        top: 70%;
+        animation-delay: 4s;
+      }
+      .floating-dot:nth-child(4) {
+        left: 20%;
+        top: 80%;
+        animation-delay: 6s;
+      }
+    </style>
+  </head>
+  <body class="font-inter bg-black text-white min-h-screen overflow-x-hidden">
+    <!-- Floating elements background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+      <div class="floating-dot"></div>
+      <div class="floating-dot"></div>
+      <div class="floating-dot"></div>
+      <div class="floating-dot"></div>
+    </div>
+
+    <!-- Header simples -->
+    <header class="fixed top-0 w-full bg-black/95 backdrop-blur-lg z-50 py-5 border-b border-white/10">
+      <div class="max-w-6xl mx-auto px-5">
+        <div class="flex items-center gap-3">
+          <img
+            src="assets/logo.png"
+            alt="Crowpay Logo"
+            class="w-10 h-10 rounded-lg brightness-110"
+          />
+          <a
+            href="/"
+            class="text-2xl font-bold text-white no-underline tracking-tight hover:text-custom-gray-100 transition-colors duration-300"
+            >Crowpay</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="min-h-screen flex items-center justify-center pt-20 px-5">
+      <div class="error-content text-center max-w-2xl mx-auto">
+        <!-- Ícone grande de erro -->
+        <div class="mb-8">
+          <div class="bg-white/[0.02] border border-white/10 rounded-full w-32 h-32 flex items-center justify-center mx-auto backdrop-blur-lg animate-gentleFloat">
+            <i class="fas fa-search text-6xl text-custom-gray-100"></i>
+          </div>
+        </div>
+
+        <!-- Mensagem de erro -->
+        <h1 class="text-6xl md:text-8xl font-extrabold mb-4 tracking-tight">
+          404
+        </h1>
+        
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 text-white">
+          Oops! Page not found
+        </h2>
+
+        <p class="text-lg text-custom-gray-100 mb-8 leading-relaxed">
+          The page you're looking for doesn't exist or has been moved. 
+          <br class="hidden md:block">
+          How about returning to the homepage and discovering how Crowpay can revolutionize your payments?
+        </p>
+
+        <!-- Botões de ação -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+          <a
+            href="/"
+            class="bg-white text-black border-2 border-white px-8 py-4 rounded-full font-semibold text-base transition-all duration-300 hover:bg-white/90 hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-white/20 no-underline"
+          >
+            <i class="fas fa-home mr-2"></i>Homepage
+          </a>
+          <button
+            onclick="window.history.back()"
+            class="bg-transparent text-custom-gray-100 border border-gray-400/30 px-8 py-4 rounded-full font-semibold text-base transition-all duration-300 hover:bg-white/5 hover:text-white hover:border-white/50 hover:-translate-y-0.5"
+          >
+            <i class="fas fa-arrow-left mr-2"></i>Go Back
+          </button>
+        </div>
+
+        <!-- Links úteis -->
+        <div class="bg-white/[0.02] border border-white/10 rounded-2xl p-6 backdrop-blur-lg">
+          <h3 class="text-lg font-semibold text-white mb-4">
+            <i class="fas fa-compass mr-2"></i>
+            Explore Crowpay
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <a
+              href="/#privacy"
+              class="text-custom-gray-100 hover:text-white transition-colors duration-300 no-underline"
+            >
+              <i class="fas fa-shield-alt mr-2"></i>
+              Privacy & Security
+            </a>
+            <a
+              href="/#crowpayer"
+              class="text-custom-gray-100 hover:text-white transition-colors duration-300 no-underline"
+            >
+              <i class="fas fa-coins mr-2"></i>
+              Become a Crowpayer
+            </a>
+            <a
+              href="/#faq"
+              class="text-custom-gray-100 hover:text-white transition-colors duration-300 no-underline"
+            >
+              <i class="fas fa-question-circle mr-2"></i>
+              FAQ
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer simples -->
+    <footer class="text-center py-8 border-t border-white/10">
+      <p class="text-custom-gray-100 text-sm">
+        <i class="fas fa-lock mr-2"></i>
+        Crowpay - Private P2P Payments
+      </p>
+    </footer>
+
+    <script>
+      // Animação suave para os links
+      document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          // Se está indo para a página inicial com âncora, deixa o comportamento padrão
+          // A animação smooth scroll será aplicada na página principal
+        });
+      });
+
+      // Efeito de hover nos botões
+      document.querySelectorAll('a, button').forEach(element => {
+        element.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px)';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+    </script>
+  </body>
+</html>
