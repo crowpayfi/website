@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Rules for waitlist collection
+    match /waitlist/{document} {
+      // Only allow document creation (CREATE)
+      // No read, update, or delete permissions
+      allow create: if 
+        // No authentication required (anonymous users can submit)
+        request.auth == null 
+        // Validate document contains only expected fields
+        && request.resource.data.keys().hasAll(['email', 'timestamp'])
+        // Allow optional additional fields for analytics
+        && request.resource.data.keys().hasOnly(['email', 'timestamp', 'userAgent', 'referrer', 'language', 'timezone'])
+        // Validate email is a string
+        && request.resource.data.email is string
+        // Validate basic email format using regex
+        && request.resource.data.email.matches('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')
+        // Validate email is not empty
+        && request.resource.data.email.size() > 0
+        // Validate email is not too long (reasonable limit)
+        && request.resource.data.email.size() <= 254
+        // Validate timestamp is server-side (for security)
+        && request.resource.data.timestamp == request.time;
+    }
+    
+    // Block access to all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 

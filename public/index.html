@@ -1163,7 +1163,53 @@
           crow.style.transform = `translateY(${scrolled * 0.1}px)`;
         }
       });
+    </script>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCuFKTCDtMyqKGw5nrHIVostd89GmE9AGA",
+        authDomain: "crowpayapp.firebaseapp.com",
+        projectId: "crowpayapp",
+        storageBucket: "crowpayapp.firebasestorage.app",
+        messagingSenderId: "376133840314",
+        appId: "1:376133840314:web:1bc98f98b60ecf144ec183",
+        measurementId: "G-9062MNVFRT"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const analytics = getAnalytics(app);
+
+      // Function to add email to waitlist
+      window.addToWaitlist = async function(email) {
+        try {
+          const docRef = await addDoc(collection(db, "waitlist"), {
+            email: email,
+            timestamp: serverTimestamp(),
+            userAgent: navigator.userAgent,
+            referrer: document.referrer || 'direct',
+            language: navigator.language || 'pt-BR',
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          });
+          
+          console.log("Email adicionado à waitlist com ID: ", docRef.id);
+          return docRef.id;
+        } catch (error) {
+          console.error("Erro ao adicionar à waitlist: ", error);
+          throw error;
+        }
+      };
+    </script>
+
+    <script>
       // Waitlist Modal Functionality
       const modal = document.getElementById("waitlistModal");
       const modalContent = document.getElementById("modalContent");
@@ -1231,18 +1277,16 @@
         submitBtn.disabled = true;
 
         try {
-          // Simulate API call (replace with actual endpoint)
-          await new Promise((resolve) => setTimeout(resolve, 1500));
-
-          // Here you would typically send the email to your backend
-          console.log("Email submitted:", email);
+          // Add to Firebase Firestore
+          await addToWaitlist(email);
 
           // Success
           closeModal();
           showSuccessToast();
+          emailInput.value = ''; // Clear form
         } catch (error) {
           console.error("Error submitting email:", error);
-          alert("Something went wrong. Please try again.");
+          alert("Algo deu errado. Tente novamente.");
         } finally {
           // Reset loading state
           submitText.classList.remove("hidden");
